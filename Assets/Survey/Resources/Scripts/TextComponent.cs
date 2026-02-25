@@ -1,0 +1,19 @@
+using TMPro;
+using UnityEngine;
+
+namespace Edia.Survey {
+    public class TextComponent : SurveyComponent {
+        [SerializeField] private TextMeshProUGUI textField;
+
+        public override void Init(ComponentData data) {
+            base.Init(data);
+            if (textField != null) {
+                textField.text = data.text;
+            }
+        }
+
+        public override string GetValue() {
+            return null; // Text blocks don't have a value to collect
+        }
+    }
+}

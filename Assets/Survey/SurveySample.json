@@ -1,0 +1,112 @@
+{
+  "pages": [
+    {
+      "id": "page_01",
+      "components": [
+        {
+          "id": "header",
+          "type": "header",
+          "text": "User Feedback"
+        },
+        {
+          "id": "info",
+          "type": "text",
+          "text": "Welcome to the Survey. \n\nPlease provide your feedback."
+        }
+      ]
+    },
+    {
+      "id": "page_02",
+      "components": [
+        {
+          "id": "header",
+          "type": "header",
+          "text": "Likert variants"
+        },
+        {
+          "id": "q_1",
+          "type": "likert_matrix",
+          "label": "Matrix Likert: Please rate the following topics",
+          "options": ["Very Poor", "Poor", "Average", "Good", "Excellent"],
+          "subQuestions": [
+            "User Interface",
+            "Performance",
+            "Documentation"
+          ]
+        },
+        {
+          "id": "q_2",
+          "type": "likert_scale",
+          "label": "Debugging is awesome?",
+          "options": ["Strongly disagree", "Disagree", "somewhat disagree", "Neutral", "Somewhat agree", "Agree", "Strongly agree"]
+        },
+        {
+          "id": "q_3",
+          "type": "likert_faces",
+          "label": "How happy are you with the service?",
+          "options": ["Very Unhappy", "Unhappy", "Neutral", "Happy", "Very Happy"]
+        }
+      ]
+    },
+    {
+      "id": "page_03",
+      "components": [
+        {
+          "id": "header",
+          "type": "Header",
+          "text": "Question Answer variants"
+        },
+        {
+          "id": "q_5",
+          "type": "qa_list",
+          "label": "Which of these features do you like? (Multiple allowed)",
+          "options": ["Dynamic Loading", "Automatic Navigation", "Scientific Scales", "Page Counter"],
+          "allowMultiple": true
+        },
+        {
+          "id": "q_6",
+          "type": "qa_list",
+          "label": "Which is your favorite? (Single choice)",
+          "options": ["Unity 6", "JSON Config", "Dynamic Prefabs"],
+          "allowMultiple": false
+        },
+        {
+          "id": "q_7",
+          "type": "qa_dropdown",
+          "label": "Please select your department",
+          "options": ["Engineering", "Design", "Marketing", "HR"]
+        }
+      ]
+    },
+    {
+      "id": "page_03",
+      "components": [
+        {
+          "id": "header",
+          "type": "Header",
+          "text": "Some VAS Variants"
+        },
+        {
+          "id": "q_8",
+          "type": "vas_slider",
+          "label": "VAS Slider Variant",
+          "text": "Please use the slider to rate your experience",
+          "leftLabel": "Low",
+          "rightLabel": "High",
+          "minValue": 0,
+          "maxValue": 20
+        },
+        {
+          "id": "q_9",
+          "type": "vas_markers",
+          "label": "VAS Marker Variant",
+          "text": "Please tick anywhere on the scale to place a marker",
+          "leftLabel": "Low",
+          "rightLabel": "High",
+          "minValue": 0,
+          "maxValue": 10
+        }
+      ]
+    }
+  ]
+}
