@@ -42,6 +42,7 @@ namespace Edia.Survey {
 
     [Serializable]
     public class SurveyData {
+        public string surveyId;
         public List<PageData> pages;
     }
 

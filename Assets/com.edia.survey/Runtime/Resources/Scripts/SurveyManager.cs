@@ -43,6 +43,7 @@ namespace Edia.Survey {
         public void Init(string json) {
             _data = JsonUtility.FromJson<SurveyData>(json);
             if (_data != null) {
+                _results.SurveyId = _data.surveyId;
                 Debug.Log($"Survey initialized from JSON string with {_data.pages.Count} pages.");
                 ShowPage(0);
             } else {
@@ -57,6 +58,7 @@ namespace Edia.Survey {
         public void Init(SurveyData data) {
             _data = data;
             if (_data != null) {
+                _results.SurveyId = _data.surveyId;
                 Debug.Log($"Survey initialized from SurveyData with {_data.pages.Count} pages.");
                 ShowPage(0);
             } else {
@@ -71,6 +73,7 @@ namespace Edia.Survey {
         public void Init(SurveyConfiguration config) {
             if (config != null && config.Data != null) {
                 _data = config.Data;
+                _results.SurveyId = _data.surveyId;
                 Debug.Log($"Survey initialized from ScriptableObject with {_data.pages.Count} pages.");
                 ShowPage(0);
             } else {
@@ -79,15 +82,16 @@ namespace Edia.Survey {
         }
         
         
-
         private void LoadSurvey() {
             if (SurveyConfig != null && SurveyConfig.Data != null) {
                 _data = SurveyConfig.Data;
+                _results.SurveyId = _data.surveyId;
                 Debug.Log($"Survey loaded from ScriptableObject with {_data.pages.Count} pages.");
             } else if (SurveyJson != null) {
                 string json = SurveyJson.text;
                 _data = JsonUtility.FromJson<SurveyData>(json);
                 if (_data != null) {
+                    _results.SurveyId = _data.surveyId;
                     Debug.Log($"Survey loaded from JSON with {_data.pages.Count} pages.");
                 } else {
                     Debug.LogError("Failed to parse Survey JSON.");

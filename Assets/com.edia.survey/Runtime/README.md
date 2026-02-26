@@ -21,6 +21,7 @@ This system allows for dynamic generation of surveys from JSON configuration fil
 ```aiignore
 ```json
 {
+  "surveyId": "my_unique_survey_id",
   "pages": [
     {
       "id": "page_01",
@@ -67,7 +68,7 @@ This system allows for dynamic generation of surveys from JSON configuration fil
 Example results JSON:
 ```json
 {
-  "SurveyId": "",
+  "SurveyId": "my_unique_survey_id",
   "results": [
     {
       "componentId": "q_1",
