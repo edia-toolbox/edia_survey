@@ -1,0 +1,25 @@
+{
+  "name": "com.edia.survey",
+  "displayName": "EDIA Survey",
+  "version": "0.1.0",
+  "unity": "6000.0",
+  "description": "Survey toolkit for 2D and VR.",
+  "keywords": [
+    "EDIA"
+  ],
+  "author": {
+    "name": "EDIA"
+  }, 
+  "dependencies": {
+    "com.unity.inputsystem": "1.13.1",
+    "com.unity.textmeshpro": "3.0.8"
+  },
+  "samples": [
+    {
+      "displayName": "Example Survey",
+      "description": "Our 'Hello world' version\nShowing all components in use, including saving data.",
+      "path": "Samples~/ExampleSurvey"
+    }
+  ],
+  "hideInEditor": false
+}

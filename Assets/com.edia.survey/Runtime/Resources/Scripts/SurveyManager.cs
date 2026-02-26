@@ -4,18 +4,22 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
 
-
 namespace Edia.Survey {
     [EdiaHeader("EDIA SURVEY", "Modular Toolkit", "Collects user feedback via variety of components")]
     public class SurveyManager : MonoBehaviour {
 
         [Header("Settings")]
-        public SurveyConfiguration SurveyConfig;
+        [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
         public TextAsset SurveyJson;
-        public SurveyPrefabSettings PrefabSettings;
+        [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
+        public SurveyConfiguration SurveyConfig;
+        [Space(20)]
+        [Header("Callback")]
+        [Tooltip("Optional: Triggered when the survey is finished")]
+        public UnityEvent OnSurveyFinished;
         
-        [Header("Events")]
-        public UnityEvent onFinished;
+        [Header("References")]
+        public SurveyPrefabSettings PrefabReferences;
 
         private SurveyData _data;
         private int _currentPageIndex = -1;
@@ -23,11 +27,58 @@ namespace Edia.Survey {
         private readonly List<SurveyComponent> _activeComponents = new List<SurveyComponent>();
 
         private void Start() {
-            LoadSurvey();
+            if (_data == null) {
+                LoadSurvey();
+            }
+            
             if (_data != null && _data.pages.Count > 0) {
                 ShowPage(0);
             }
         }
+        
+        /// <summary>
+        /// Initializes the survey with a JSON configuration string.
+        /// </summary>
+        /// <param name="json">The JSON string containing survey data.</param>
+        public void Init(string json) {
+            _data = JsonUtility.FromJson<SurveyData>(json);
+            if (_data != null) {
+                Debug.Log($"Survey initialized from JSON string with {_data.pages.Count} pages.");
+                ShowPage(0);
+            } else {
+                Debug.LogError("Failed to parse Survey JSON provided to Init.");
+            }
+        }
+
+        /// <summary>
+        /// Initializes the survey with a SurveyData object.
+        /// </summary>
+        /// <param name="data">The SurveyData object.</param>
+        public void Init(SurveyData data) {
+            _data = data;
+            if (_data != null) {
+                Debug.Log($"Survey initialized from SurveyData with {_data.pages.Count} pages.");
+                ShowPage(0);
+            } else {
+                Debug.LogError("SurveyData provided to Init is null.");
+            }
+        }
+
+        /// <summary>
+        /// Initializes the survey with a SurveyConfiguration ScriptableObject.
+        /// </summary>
+        /// <param name="config">The SurveyConfiguration ScriptableObject.</param>
+        public void Init(SurveyConfiguration config) {
+            if (config != null && config.Data != null) {
+                _data = config.Data;
+                Debug.Log($"Survey initialized from ScriptableObject with {_data.pages.Count} pages.");
+                ShowPage(0);
+            } else {
+                Debug.LogError("SurveyConfiguration provided to Init is null or contains no data.");
+            }
+        }
+        
+        
 
         private void LoadSurvey() {
             if (SurveyConfig != null && SurveyConfig.Data != null) {
@@ -142,7 +193,7 @@ namespace Edia.Survey {
         }
 
         private GameObject GetPrefabForType(string type) {
-            return PrefabSettings != null ? PrefabSettings.GetPrefabForType(type) : null;
+            return PrefabReferences != null ? PrefabReferences.GetPrefabForType(type) : null;
         }
 
         private void HandleButtonAction(string action) {
@@ -159,7 +210,7 @@ namespace Edia.Survey {
                     SubmitSurvey();
                     break;
                 case "finish":
-                    onFinished?.Invoke();
+                    OnSurveyFinished?.Invoke();
                     break;
                 default:
                     Debug.Log($"Action triggered: {action}");

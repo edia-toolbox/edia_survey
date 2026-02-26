@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 namespace Edia.Survey {
-    [CreateAssetMenu(fileName = "SurveyPrefabSettings", menuName = "EDIA/Survey/Prefab Settings")]
+    
     public class SurveyPrefabSettings : ScriptableObject {
         [Serializable]
         public struct ComponentPrefabMap {

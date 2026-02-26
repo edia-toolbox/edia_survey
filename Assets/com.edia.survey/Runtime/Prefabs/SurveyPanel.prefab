@@ -75,9 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4976ba7b5e654d3791051c86ae8e6d82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SurveyConfig: {fileID: 0}
   SurveyJson: {fileID: 4900000, guid: 4fbd4547f89ed77479459e4b94d4c961, type: 3}
-  PrefabSettings: {fileID: 11400000, guid: d1c409460f04db44d8d00ab0d4e0f3d1, type: 2}
-  onFinished:
+  SurveyConfig: {fileID: 0}
+  OnSurveyFinished:
     m_PersistentCalls:
       m_Calls: []
+  PrefabReferences: {fileID: 11400000, guid: d1c409460f04db44d8d00ab0d4e0f3d1, type: 2}

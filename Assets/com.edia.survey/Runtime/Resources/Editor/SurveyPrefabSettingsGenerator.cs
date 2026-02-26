@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Edia.Survey {
     public static class SurveyPrefabSettingsGenerator {
-        [MenuItem("EDIA/Survey/Generate Dummy Prefab Settings")]
+        
         public static void GenerateDummySettings() {
             string path = "Assets/EdiaSamples/Survey/SurveyPrefabSettings_Dummy.asset";
             
