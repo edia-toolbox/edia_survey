@@ -12,7 +12,7 @@
         {
           "id": "info",
           "type": "text",
-          "text": "Welcome to the Survey. \n\nPlease provide your feedback."
+          "text": "Welcome to the Survey. \nPlease provide your feedback."
         }
       ]
     },
@@ -94,8 +94,9 @@
           "text": "Please use the slider to rate your experience",
           "leftLabel": "Low",
           "rightLabel": "High",
-          "minValue": 0,
-          "maxValue": 20
+          "minValue": "0.0",
+          "maxValue": "20.0",
+          "indicatorType": "Lines"
         },
         {
           "id": "q_9",
@@ -104,8 +105,9 @@
           "text": "Please tick anywhere on the scale to place a marker",
           "leftLabel": "Low",
           "rightLabel": "High",
-          "minValue": 0,
-          "maxValue": 10
+          "minValue": "0",
+          "maxValue": "10",
+          "indicatorType": "Bands"
         }
       ]
     }

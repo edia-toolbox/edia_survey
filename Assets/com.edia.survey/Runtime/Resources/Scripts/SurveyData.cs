@@ -19,9 +19,9 @@ namespace Edia.Survey {
         [Tooltip("List of selection options (Used by: Likert, LikertMatrix, QuestionAnswer, QuestionDropdownAnswer)")]
         public List<string> options;
         [Tooltip("Minimum value for range-based components (Used by: Slider, VAS)")]
-        public int minValue;
+        public string minValue;
         [Tooltip("Maximum value for range-based components (Used by: Slider, VAS)")]
-        public int maxValue;
+        public string maxValue;
         [Tooltip("Label displayed on the left side (Used by: VAS)")]
         public string leftLabel; // For Semantic Differential or VAS
         [Tooltip("Label displayed on the right side (Used by: VAS)")]
@@ -32,6 +32,8 @@ namespace Edia.Survey {
         public bool allowMultiple; // For QuestionAnswer component
         [Tooltip("List of questions for matrix components (Used by: LikertMatrix)")]
         public List<string> subQuestions; // For Matrix Likert component
+        [Tooltip("Type of indicator to display (Used by: VAS)")]
+        public string indicatorType;
     }
 
     [Serializable]

@@ -55,10 +55,8 @@ MonoBehaviour:
   Bg: {fileID: 2944968144340709828}
   Line: {fileID: 8456627291888096586}
   myText: {fileID: 1290311303758596690}
-  Marker: {fileID: 0}
-  ColorBand01: {r: 1, g: 1, b: 1, a: 0.2509804}
-  ColorBand02: {r: 0, g: 0, b: 0, a: 0.2509804}
-  Type: 0
+  ColorBand01: {r: 0.7254902, g: 0.7254902, b: 0.7254902, a: 0.14901961}
+  ColorBand02: {r: 0.19607845, g: 0.19607845, b: 0.19607845, a: 0.14901961}
 --- !u!222 &3435854638902983458
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -84,7 +82,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6534760864332622677
 RectTransform:
   m_ObjectHideFlags: 0
@@ -336,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.21960784}
+  m_Color: {r: 0.7254902, g: 0.7254902, b: 0.7254902, a: 0.2509804}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

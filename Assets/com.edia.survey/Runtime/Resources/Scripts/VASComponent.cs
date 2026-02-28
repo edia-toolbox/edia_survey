@@ -8,19 +8,19 @@ namespace Edia.Survey {
 
     public class VASComponent : SurveyComponent {
         [Header("Settings")]
-        public Constants.VasTypes type = Constants.VasTypes.Slider;
+        public Constants.VasTypes Type = Constants.VasTypes.Slider;
 
-        [Tooltip("Only applies to Slider type")]
-        public Constants.IndicatorTypes indicatorType = Constants.IndicatorTypes.Lines;
+        public Constants.IndicatorTypes IndicatorType = Constants.IndicatorTypes.Lines;
 
         [Header("References")]
-        [SerializeField] private TextMeshProUGUI topiclabel;
+        [SerializeField] private TextMeshProUGUI _topiclabel;
 
-        [SerializeField] private TextMeshProUGUI topicQuestion;
+        [SerializeField] private TextMeshProUGUI _topicQuestion;
         [SerializeField] private TextMeshProUGUI inputLabelLeft;
         [SerializeField] private TextMeshProUGUI inputLabelRight;
         [SerializeField] private Slider sliderObj;
-        [SerializeField] private RectTransform itemsContainer;
+        [SerializeField] private RectTransform _markersContainer;
+        [SerializeField] private RectTransform _indicatorsContainer;
         [SerializeField] private GameObject indicatorPrefab;
         [SerializeField] private GameObject markerPrefab;
 
@@ -30,86 +30,121 @@ namespace Edia.Survey {
             base.Init(data);
 
             switch (data.type) {
-                case "VAS_Markers": type = Constants.VasTypes.Markers; break;
-                case "VAS_Slider": type = Constants.VasTypes.Slider; break;
+                case "VAS_Markers": Type = Constants.VasTypes.Markers; break;
+                case "VAS_Slider": Type = Constants.VasTypes.Slider; break;
             }
 
-            topiclabel.text = data.label + ":";
-            topicQuestion.text = data.text;
+            if (!string.IsNullOrEmpty(data.indicatorType)) {
+                if (System.Enum.TryParse(data.indicatorType, true, out Constants.IndicatorTypes indicatorEnum)) {
+                    IndicatorType = indicatorEnum;
+                }
+            }
+
+            _topiclabel.text = data.label + ":";
+            _topicQuestion.text = data.text;
             inputLabelLeft.text = data.leftLabel;
             inputLabelRight.text = data.rightLabel;
 
-            GenerateItems(data.minValue, data.maxValue);
+            float min = 0;
+            float max = 0;
+            bool forceFloat = false;
+
+            if (float.TryParse(data.minValue, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out float minVal)) {
+                min = minVal;
+                if (data.minValue.Contains(".") || data.minValue.Contains(",")) forceFloat = true;
+            }
+
+            if (float.TryParse(data.maxValue, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out float maxVal)) {
+                max = maxVal;
+                if (data.maxValue.Contains(".") || data.maxValue.Contains(",")) forceFloat = true;
+            }
+
+            GenerateItems(min, max, forceFloat);
         }
 
-        private void GenerateItems(int min, int max) {
-            if (indicatorPrefab == null || itemsContainer == null) return;
+        private void GenerateItems(float min, float max, bool forceFloat = false) {
+            if (indicatorPrefab == null || _indicatorsContainer == null) return;
 
-            // Cleanup old indicators
-            foreach (Transform child in itemsContainer) {
+            // Cleanup old items
+            foreach (Transform child in _indicatorsContainer) {
                 Destroy(child.gameObject);
+            }
+            if (_markersContainer != null) {
+                foreach (Transform child in _markersContainer) {
+                    Destroy(child.gameObject);
+                }
             }
 
             _spawnedItems.Clear();
 
-            if (type == Constants.VasTypes.Markers) {
-                // Ensure we have a ToggleGroup so only one indicator can be active
-                var group = itemsContainer.GetComponent<ToggleGroup>();
-                if (group == null) group = itemsContainer.gameObject.AddComponent<ToggleGroup>();
-                group.allowSwitchOff = false; // Prevent all toggles from being off
-            }
-            else {
+            // Slider visibility and basic setup
+            if (Type == Constants.VasTypes.Slider) {
                 sliderObj.gameObject.SetActive(true);
                 sliderObj.minValue = min;
                 sliderObj.maxValue = max;
+                bool isWhole = Mathf.Approximately(min, Mathf.Round(min)) && Mathf.Approximately(max, Mathf.Round(max));
+                sliderObj.wholeNumbers = isWhole && !forceFloat;
+                sliderObj.value = (max + min) / 2f;
+            }
+            else {
+                sliderObj.gameObject.SetActive(false);
             }
 
             var count = Mathf.FloorToInt(max - min);
 
-            for (int i = 0; i <= count; i++) {
-                GameObject item = Instantiate(type == Constants.VasTypes.Markers ? markerPrefab : indicatorPrefab, itemsContainer);
-                item.name = (min + i).ToString();
+            // Generate Indicators if type is not None
+            if (IndicatorType != Constants.IndicatorTypes.None) {
+                for (int i = 0; i <= count; i++) {
+                    GameObject item = Instantiate(indicatorPrefab, _indicatorsContainer);
+                    item.name = "Indicator_" + (min + i).ToString();
 
-                switch (type) {
-                    case Constants.VasTypes.Markers:
-                        item.GetComponent<Toggle>().group = itemsContainer.GetComponent<ToggleGroup>();
-                        break;
-                    case Constants.VasTypes.Slider:
-                        item.GetComponent<VASIndicator>().SetIndicator(indicatorType, i, i.ToString());
-                        break;
+                    var indicator = item.GetComponent<VASIndicator>();
+                    if (indicator != null) indicator.SetIndicator(IndicatorType, i, (min + i).ToString());
+                }
+            }
+
+            // Generate Markers if type is Markers
+            if (Type == Constants.VasTypes.Markers && markerPrefab != null && _markersContainer != null) {
+                // Ensure we have a ToggleGroup so only one marker can be active
+                var group = _markersContainer.GetComponent<ToggleGroup>();
+                if (group == null) group = _markersContainer.gameObject.AddComponent<ToggleGroup>();
+                group.allowSwitchOff = false;
+
+                for (int i = 0; i <= count; i++) {
+                    GameObject item = Instantiate(markerPrefab, _markersContainer);
+                    item.name = (min + i).ToString();
+
+                    var toggle = item.GetComponent<Toggle>();
+                    if (toggle != null) toggle.group = group;
+
+                    _spawnedItems.Add(item);
                 }
 
-                _spawnedItems.Add(item);
-            }
-
-            var middle = Mathf.FloorToInt(count / 2);
-
-            if (type == Constants.VasTypes.Markers) {
-                _spawnedItems[middle].GetComponent<Toggle>().isOn = true;
-            }
-            else {
-                sliderObj.value = middle;
+                var middleIndex = Mathf.FloorToInt(count / 2);
+                if (_spawnedItems.Count > middleIndex) {
+                    _spawnedItems[middleIndex].GetComponent<Toggle>().isOn = true;
+                }
             }
         }
 
         public override string GetValue() {
-            switch (type) {
+            switch (Type) {
                 case Constants.VasTypes.Markers:
-                    var activeToggle = itemsContainer.GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault();
+                    if (_markersContainer == null) return "N.A.";
+                    var group = _markersContainer.GetComponent<ToggleGroup>();
+                    if (group == null) return "N.A.";
+                    var activeToggle = group.ActiveToggles().FirstOrDefault();
                     if (activeToggle != null) return activeToggle.gameObject.name;
                     Debug.LogWarning("No toggle is currently active in the VAS Markers group");
                     return "N.A.";
                 case Constants.VasTypes.Slider:
                     return sliderObj.value.ToString();
-                    break;
                 default:
                     return "N.A.";
             }
         }
-
         public override void ResetComponent() {
             Debug.Log("ResetComponent");
         }
     }
-
 }

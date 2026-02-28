@@ -14,9 +14,11 @@ namespace Edia.Survey {
         [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
         public SurveyConfiguration SurveyConfig;
         [Space(20)]
-        [Header("Callback")]
+        [Header("Callbacks")]
         [Tooltip("Optional: Triggered when the survey is finished")]
         public UnityEvent OnSurveyFinished;
+        [Tooltip("Optional: Triggered when the survey is finished and provides results.json as a string")]
+        public UnityEvent<string> OnSurveyFinishedResult;
         
         [Header("References")]
         public SurveyPrefabSettings PrefabReferences;
