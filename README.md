@@ -195,8 +195,6 @@ IndicatorTypes: `None`,`Lines`, `Bands`, `Numbers`]
 For navigation (`Next`, `Back`). This is added automatically to each page.
 
 # Results
-
-Example results JSON:
 ```json
 {
   "SurveyId": "my_unique_survey_id",
@@ -236,3 +234,19 @@ Example results JSON:
   ]
 }
 ```
+
+# Testing
+
+This project uses the Unity Test Runner for quality assurance. To run tests, open the **Test Runner** window in Unity (`Window > General > Test Runner`).
+
+### Test Structure
+- **EditMode Tests**: Located in `Assets/com.edia.survey/Tests/Editor`. These tests run in the Unity Editor and are used for testing logic that doesn't require a running scene (e.g., data serialization).
+- **PlayMode Tests**: Located in `Assets/com.edia.survey/Tests/Runtime`. These tests run in a scene and can be used to test MonoBehaviour interactions and full survey flows.
+
+### Assembly Definitions
+The project uses Assembly Definitions (`.asmdef`) to manage dependencies:
+- `Edia.Survey.Runtime`: The main runtime code.
+- `Edia.Survey.Tests.Editor`: Editor-only tests.
+- `Edia.Survey.Tests.Runtime`: Runtime/PlayMode tests.
+
+To add new tests, create a new script in the appropriate `Tests` subfolder and ensure it is part of the corresponding assembly.
