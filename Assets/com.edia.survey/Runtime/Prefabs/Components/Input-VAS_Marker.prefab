@@ -124,6 +124,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Input-VAS_Marker
       objectReference: {fileID: 0}
+    - target: {fileID: 7967855121119744985, guid: 21bd13281da307e4aae7c2482e06b04a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967855121119744985, guid: 21bd13281da307e4aae7c2482e06b04a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967855121119744985, guid: 21bd13281da307e4aae7c2482e06b04a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967855121119744985, guid: 21bd13281da307e4aae7c2482e06b04a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967855121119744985, guid: 21bd13281da307e4aae7c2482e06b04a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8188044098013858375, guid: 21bd13281da307e4aae7c2482e06b04a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

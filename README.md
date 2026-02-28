@@ -60,6 +60,9 @@ The `type` field defines the type of component and is used to determine which UI
 
 ### Header
 For displaying section headers.
+
+
+![Header](./Documentation/img_2.png)
 ```json
 {
   "id": "header",
@@ -70,6 +73,8 @@ For displaying section headers.
 
 ### Text
 For displaying information blocks.
+
+![Text](./Documentation/img_text.png)
 ```json
 {
   "id": "info",
@@ -80,6 +85,8 @@ For displaying information blocks.
 
 ### Likert
 For Likert-scale questions using toggles.
+
+![Likert](./Documentation/img_4.png)
 ```json
 {
   "id": "q_2",
@@ -92,6 +99,8 @@ For Likert-scale questions using toggles.
 ### LikertFaces
 For Likert-scale questions with smilie indicators.
 Supports 3,5 and 7 options.
+
+![LikertFaces](./Documentation/img_5.png)
 ```json
 {
   "id": "q_3", 
@@ -103,6 +112,8 @@ Supports 3,5 and 7 options.
 
 ### LikertMatrix
 A grid-style Likert scale with multiple sub-questions (rows) and shared options (columns).
+
+![LikertMatrix](./Documentation/img_6.png)
 ```json
 {
   "id": "q_1", 
@@ -115,6 +126,8 @@ A grid-style Likert scale with multiple sub-questions (rows) and shared options 
 
 ### QuestionAnswer
 For questions with a list of answers and checkboxes/toggles. Supports single or multiple selection.
+
+![QuestionAnswer](./Documentation/img_9.png)
 ```json
 {
   "id": "q_5", 
@@ -127,6 +140,8 @@ For questions with a list of answers and checkboxes/toggles. Supports single or 
 
 ### QuestionDropdownAnswer
 For a single question with multiple options presented in a dropdown.
+
+![QuestionDropdownAnswer](./Documentation/img_10.png)
 ```json
 {
   "id": "q_7", 
@@ -138,8 +153,10 @@ For a single question with multiple options presented in a dropdown.
 
 ### VASSlider
 Visual Analogue Scale variant supports continuous sliders.
-Supports whole numbers (handle snaps on value) and floating point (analog handle) values.
-IndicatorTypes: None,Lines, Bands, Numbers.
+Increments: `whole numbers` (snaps on value) and `floating point` (analog handle). 
+IndicatorTypes: `None`,`Lines`, `Bands`, `Numbers`]
+
+![VASSlider](./Documentation/img_12.png)
 ```json
 {
   "id": "q_8", 
@@ -156,7 +173,10 @@ IndicatorTypes: None,Lines, Bands, Numbers.
 
 ### VASMarkers
 Visual Analogue Scale variant supports discrete marker placement.
-IndicatorTypes: None,Lines, Bands, Numbers.
+
+IndicatorTypes: `None`,`Lines`, `Bands`, `Numbers`]
+
+![VASMarkers](./Documentation/img_13.png)
 ```json
 {
   "id": "q_9", 
@@ -172,7 +192,7 @@ IndicatorTypes: None,Lines, Bands, Numbers.
 ```
 
 ### Buttons
-For navigation (Next, Back). This is added automatically to each page.
+For navigation (`Next`, `Back`). This is added automatically to each page.
 
 # Results
 
