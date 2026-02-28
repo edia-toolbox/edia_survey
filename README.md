@@ -15,7 +15,7 @@ This system allows for dynamic generation of surveys from JSON configuration fil
 1. Drag the prefab 'SurveyPanel' under a canvas object. 
 2. Define your survey by setting up the JSON config file. (see below)
 3. Drag this file into the 'Survey json' field.
-3. Link the `onFinished` UnityEvent to any cleanup or transition logic, the OnFinishedResult also provides the results as JSON string.
+3. Link the `onFinished` UnityEvent to any cleanup or transition logic, the `OnFinishedResult` also provides the results as JSON string.
 
 ### OR
 - Generate an scriptable object for the survey configuration via 'Create -> EDIA -> Survey -> Survey Configuration' and drag it into the 'Survey Configuration' field.
