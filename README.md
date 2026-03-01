@@ -11,6 +11,11 @@ This system allows for dynamic generation of surveys from JSON configuration fil
 - **Dynamic UI Generation**: Creates UI survey components based on JSON configuration. No need to create prefabs manually.
 - **Automatic Results Collection**: Collects results automatically, logs them to a JSON file. 
 
+# Installation
+Import the package via the Unity Package Manager.
+
+Use the following path: 'https://github.com/edia-toolbox/edia_survey.git?path=Assets/com.edia.survey'
+
 # How to Use
 1. Drag the prefab 'SurveyPanel' under a canvas object. 
 2. Define your survey by setting up the JSON config file. (see below)
