@@ -230,6 +230,7 @@ namespace Edia.Survey {
                     break;
                 case "finish":
                     OnSurveyFinished?.Invoke();
+                    OnSurveyFinishedResult?.Invoke(JsonUtility.ToJson(_results));
                     break;
                 default:
                     Debug.Log($"Action triggered: {action}");
