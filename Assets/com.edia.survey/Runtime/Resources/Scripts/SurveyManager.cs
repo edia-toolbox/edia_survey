@@ -9,6 +9,9 @@ namespace Edia.Survey {
     public class SurveyManager : MonoBehaviour {
 
         [Header("Settings")]
+        public Color MainColor = Color.blue;
+        public bool ShowThankYouPage = true;
+        [Space(10)]
         [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
         public TextAsset SurveyJson;
         [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
@@ -263,7 +266,12 @@ namespace Edia.Survey {
             File.WriteAllText(savePath, jsonResults);
             Debug.Log("Results saved to: " + savePath);
 
-            ShowThankYou();
+            if (ShowThankYouPage) {
+                ShowThankYou();
+            } else {
+                OnSurveyFinished?.Invoke();
+                OnSurveyFinishedResult?.Invoke(JsonUtility.ToJson(_results));
+            }
         }
 
         private void ShowThankYou() {

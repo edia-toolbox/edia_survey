@@ -20,7 +20,8 @@ Use the following path: 'https://github.com/edia-toolbox/edia_survey.git?path=As
 1. Drag the prefab 'SurveyPanel' under a canvas object. 
 2. Define your survey by setting up the JSON config file. (see below)
 3. Drag this file into the 'Survey json' field.
-4. Link the `onFinished` UnityEvent to any cleanup or transition logic, the `OnFinishedResult` also provides the results as JSON string.
+4. (Optional) Set the **Main Color** and **Show Thank You Page** settings in the inspector. If `Show Thank You Page` is disabled, the survey will finish immediately after submission.
+5. Link the `onFinished` UnityEvent to any cleanup or transition logic, the `OnFinishedResult` also provides the results as JSON string.
 
 # Parsing Results
 When the survey is finished, the `OnSurveyFinishedResult(string)` event is triggered, providing the results as a JSON string.
