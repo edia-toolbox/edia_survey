@@ -9,7 +9,7 @@ namespace Edia.Survey {
     public class SurveyManager : MonoBehaviour {
 
         [Header("Settings")]
-        public Color MainColor = Color.blue;
+        public Color FocusColor = Color.yellow;
         public bool ShowThankYouPage = true;
         [Space(10)]
         [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
@@ -258,19 +258,29 @@ namespace Edia.Survey {
 
         public void SubmitSurvey() {
             CollectCurrentPageResults();
-            string jsonResults = JsonUtility.ToJson(_results, true);
+            string jsonResults = "";
+            try {
+                jsonResults = JsonUtility.ToJson(_results, true);
+            } catch (System.Exception e) {
+                Debug.LogError("Failed to serialize results: " + e.Message);
+            }
+            
             Debug.Log("Survey Submitted:\n" + jsonResults);
             
             // Example: Save to persistent data path
-            string savePath = Path.Combine(Application.persistentDataPath, "results.json");
-            File.WriteAllText(savePath, jsonResults);
-            Debug.Log("Results saved to: " + savePath);
+            try {
+                string savePath = Path.Combine(Application.persistentDataPath, "results.json");
+                File.WriteAllText(savePath, jsonResults);
+                Debug.Log("Results saved to: " + savePath);
+            } catch (System.Exception e) {
+                Debug.LogWarning("Failed to save results: " + e.Message);
+            }
 
             if (ShowThankYouPage) {
                 ShowThankYou();
             } else {
                 OnSurveyFinished?.Invoke();
-                OnSurveyFinishedResult?.Invoke(JsonUtility.ToJson(_results));
+                OnSurveyFinishedResult?.Invoke(jsonResults);
             }
         }
 
