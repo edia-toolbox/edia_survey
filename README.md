@@ -46,7 +46,8 @@ See the `Samples/ExampleSurvey/SurveyResultExample.cs` for a complete implementa
 
 ### OR
 - Generate an scriptable object for the survey configuration via 'Create -> EDIA -> Survey -> Survey Configuration' and drag it into the 'Survey Configuration' field.
-- Call the `Init(string json)` method on the `SurveyManager` script to initialize the survey from a JSON string.`
+- Call the `Init()` method on the `SurveyManager` script to initialize the survey using the JSON file or ScriptableObject assigned in the inspector.
+- Call the `Init(string json)` method on the `SurveyManager` script to initialize the survey from a JSON string.
 
 ## Config JSON Structure
 
