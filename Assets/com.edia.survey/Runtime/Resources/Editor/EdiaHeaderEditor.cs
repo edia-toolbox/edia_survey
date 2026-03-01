@@ -1,9 +1,12 @@
 using UnityEditor;
 using UnityEngine;
 
-[CanEditMultipleObjects]
-[CustomEditor(typeof(MonoBehaviour), true)]
-public class EdiaHeaderEditor : Editor {
+namespace Edia.Survey
+{
+    [CanEditMultipleObjects]
+    [CustomEditor(typeof(MonoBehaviour), true)]
+    public class EdiaHeaderEditor : Editor
+    {
     private EdiaHeaderAttribute headerAttribute;
     private Texture2D           headerBG;
     private Texture2D           iconTexture;
@@ -103,4 +106,5 @@ public class EdiaHeaderEditor : Editor {
         // Description
         EditorGUI.LabelField(new Rect(18, rect.height - 14, rect.width, 22), header.Description, descriptionStyle);
     }
+}
 }

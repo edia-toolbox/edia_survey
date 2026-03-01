@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Edia.Survey;
 
-namespace Edia.Survey.Tests.Runtime
+namespace Edia.Survey
 {
     public class SurveyManagerTests
     {
@@ -16,6 +15,7 @@ namespace Edia.Survey.Tests.Runtime
         public void SetUp()
         {
             _surveyManagerGo = new GameObject("SurveyManager");
+            _surveyManagerGo.SetActive(false);
             _surveyManager = _surveyManagerGo.AddComponent<SurveyManager>();
         }
 
@@ -43,8 +43,8 @@ namespace Edia.Survey.Tests.Runtime
             };
 
             // Act
-            // We expect some warnings because PrefabReferences are null, but it shouldn't crash.
             _surveyManager.Init(data);
+            _surveyManagerGo.SetActive(true);
 
             yield return null;
 

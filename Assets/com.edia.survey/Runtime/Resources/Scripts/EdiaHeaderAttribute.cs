@@ -1,16 +1,19 @@
 using UnityEngine;
 
-[System.AttributeUsage(System.AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-public class EdiaHeaderAttribute : System.Attribute
+namespace Edia.Survey
 {
-    public string Title       { get; }
-    public string Subtitle    { get; }
-    public string Description { get; }
-
-    public EdiaHeaderAttribute(string title, string subtitle = "", string description = "")
+    [System.AttributeUsage(System.AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+    public class EdiaHeaderAttribute : System.Attribute
     {
-        Title       = title;
-        Subtitle    = subtitle;
-        Description = description;
+        public string Title { get; }
+        public string Subtitle { get; }
+        public string Description { get; }
+
+        public EdiaHeaderAttribute(string title, string subtitle = "", string description = "")
+        {
+            Title = title;
+            Subtitle = subtitle;
+            Description = description;
+        }
     }
 }

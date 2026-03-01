@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./Assets/com.edia.survey/Runtime/Resources/Icons/Edia_Blue.png" width="128" />
+  <img src="./Documentation/Edia_Blue.png" width="128" />
 </p>
 
 # EDIA Survey Toolkit

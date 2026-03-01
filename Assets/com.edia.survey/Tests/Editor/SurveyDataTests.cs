@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using Edia.Survey;
 
-namespace Edia.Survey.Tests.Editor
+namespace Edia.Survey
 {
     public class SurveyDataTests
     {
