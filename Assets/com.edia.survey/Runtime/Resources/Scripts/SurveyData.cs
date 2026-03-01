@@ -52,6 +52,37 @@ namespace Edia.Survey {
     public class SurveyResult {
         public string SurveyId;
         public List<ComponentResult> results = new List<ComponentResult>();
+
+        /// <summary>
+        /// Parses a JSON string back into a SurveyResult object.
+        /// </summary>
+        public static SurveyResult Parse(string json) {
+            return JsonUtility.FromJson<SurveyResult>(json);
+        }
+
+        /// <summary>
+        /// Converts the results list to a Dictionary with componentId as the key.
+        /// </summary>
+        public Dictionary<string, string> ToDictionary() {
+            var dict = new Dictionary<string, string>();
+            foreach (var r in results) {
+                if (!string.IsNullOrEmpty(r.componentId)) {
+                    dict[r.componentId] = r.value;
+                }
+            }
+            return dict;
+        }
+
+        /// <summary>
+        /// Converts the results list to a List of KeyValuePairs.
+        /// </summary>
+        public List<KeyValuePair<string, string>> ToKeyValuePairList() {
+            var list = new List<KeyValuePair<string, string>>();
+            foreach (var r in results) {
+                list.Add(new KeyValuePair<string, string>(r.componentId, r.value));
+            }
+            return list;
+        }
     }
 
     [Serializable]

@@ -20,8 +20,8 @@ namespace Edia.Survey {
         [Tooltip("Optional: Triggered when the survey is finished and provides results.json as a string")]
         public UnityEvent<string> OnSurveyFinishedResult;
         
-        [Header("References")]
-        public SurveyPrefabSettings PrefabReferences;
+        [SerializeField, HideInInspector]
+        private SurveyPrefabSettings PrefabReferences;
 
         private SurveyData _data;
         private int _currentPageIndex = -1;
@@ -199,6 +199,9 @@ namespace Edia.Survey {
         }
 
         private GameObject GetPrefabForType(string type) {
+            if (PrefabReferences == null) {
+                PrefabReferences = Resources.Load<SurveyPrefabSettings>("SurveyPrefabs");
+            }
             return PrefabReferences != null ? PrefabReferences.GetPrefabForType(type) : null;
         }
 

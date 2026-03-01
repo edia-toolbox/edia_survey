@@ -20,7 +20,29 @@ Use the following path: 'https://github.com/edia-toolbox/edia_survey.git?path=As
 1. Drag the prefab 'SurveyPanel' under a canvas object. 
 2. Define your survey by setting up the JSON config file. (see below)
 3. Drag this file into the 'Survey json' field.
-3. Link the `onFinished` UnityEvent to any cleanup or transition logic, the `OnFinishedResult` also provides the results as JSON string.
+4. Link the `onFinished` UnityEvent to any cleanup or transition logic, the `OnFinishedResult` also provides the results as JSON string.
+
+# Parsing Results
+When the survey is finished, the `OnSurveyFinishedResult(string)` event is triggered, providing the results as a JSON string.
+You can use the `SurveyResult` helper methods to parse this data back into a usable format:
+
+```csharp
+public void OnResultsReceived(string json) {
+    // Parse JSON into a SurveyResult object
+    SurveyResult result = SurveyResult.Parse(json);
+
+    // Get as a Dictionary for easy lookup (componentId as key)
+    Dictionary<string, string> dict = result.ToDictionary();
+    if (dict.TryGetValue("my_question_id", out string val)) {
+        Debug.Log($"User answered: {val}");
+    }
+
+    // Or get as a List of KeyValuePairs (requested by user)
+    List<KeyValuePair<string, string>> pairs = result.ToKeyValuePairList();
+}
+```
+
+See the `Samples/ExampleSurvey/SurveyResultExample.cs` for a complete implementation.
 
 ### OR
 - Generate an scriptable object for the survey configuration via 'Create -> EDIA -> Survey -> Survey Configuration' and drag it into the 'Survey Configuration' field.
