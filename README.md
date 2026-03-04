@@ -23,27 +23,6 @@ Use the following path: 'https://github.com/edia-toolbox/edia_survey.git?path=As
 4. (Optional) Set the **Main Color** and **Show Thank You Page** settings in the inspector. If `Show Thank You Page` is disabled, the survey will finish immediately after submission.
 5. Link the `onFinished` UnityEvent to any cleanup or transition logic, the `OnFinishedResult` also provides the results as JSON string.
 
-# Parsing Results
-When the survey is finished, the `OnSurveyFinishedResult(string)` event is triggered, providing the results as a JSON string.
-You can use the `SurveyResult` helper methods to parse this data back into a usable format:
-
-```csharp
-public void OnResultsReceived(string json) {
-    // Parse JSON into a SurveyResult object
-    SurveyResult result = SurveyResult.Parse(json);
-
-    // Get as a Dictionary for easy lookup (componentId as key)
-    Dictionary<string, string> dict = result.ToDictionary();
-    if (dict.TryGetValue("my_question_id", out string val)) {
-        Debug.Log($"User answered: {val}");
-    }
-
-    // Or get as a List of KeyValuePairs (requested by user)
-    List<KeyValuePair<string, string>> pairs = result.ToKeyValuePairList();
-}
-```
-
-See the `Samples/ExampleSurvey/SurveyResultExample.cs` for a complete implementation.
 
 ### OR
 - Generate an scriptable object for the survey configuration via 'Create -> EDIA -> Survey -> Survey Configuration' and drag it into the 'Survey Configuration' field.
@@ -224,6 +203,29 @@ IndicatorTypes: `None`,`Lines`, `Bands`, `Numbers`]
 For navigation (`Next`, `Back`). This is added automatically to each page.
 
 # Results
+
+When the survey is finished, the `OnSurveyFinishedResult(string)` event is triggered, providing the results as a JSON string.
+You can use the `SurveyResult` helper methods to parse this data back into a usable format:
+
+```csharp
+public void OnResultsReceived(string json) {
+    // Parse JSON into a SurveyResult object
+    SurveyResult result = SurveyResult.Parse(json);
+
+    // Get as a Dictionary for easy lookup (componentId as key)
+    Dictionary<string, string> dict = result.ToDictionary();
+    if (dict.TryGetValue("my_question_id", out string val)) {
+        Debug.Log($"User answered: {val}");
+    }
+
+    // Or get as a List of KeyValuePairs (requested by user)
+    List<KeyValuePair<string, string>> pairs = result.ToKeyValuePairList();
+}
+```
+
+See the `Samples/ExampleSurvey/SurveyResultExample.cs` for a complete implementation.
+
+Example JSON output:
 ```json
 {
   "SurveyId": "my_unique_survey_id",
