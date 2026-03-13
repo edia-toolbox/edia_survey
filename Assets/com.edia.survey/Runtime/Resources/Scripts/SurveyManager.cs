@@ -10,7 +10,6 @@ namespace Edia.Survey {
 
         [Header("Settings")]
         public Color FocusColor = Color.yellow;
-        public bool ShowThankYouPage = true;
         [Space(10)]
         [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
         public TextAsset SurveyJson;
@@ -169,11 +168,6 @@ namespace Edia.Survey {
                 if (comp != null) {
                     comp.Init(compData);
                     _activeComponents.Add(comp);
-
-                    // Handle button actions
-                    if (comp is ButtonsComponent btn) {
-                        btn.OnButtonClicked = HandleButtonAction;
-                    }
                 }
             } else {
                 Debug.LogWarning($"No prefab found for component type: {compData.type}");
@@ -276,30 +270,14 @@ namespace Edia.Survey {
                 Debug.LogWarning("Failed to save results: " + e.Message);
             }
 
-            if (ShowThankYouPage) {
-                ShowThankYou();
+            // If there are more pages (e.g. a 'thank_you' or 'finish_survey' page), show the next one.
+            // By default, the survey finishes after the last page unless a 'finish' action is triggered by a component.
+            if (_data != null && _currentPageIndex < _data.pages.Count - 1) {
+                ShowPage(_currentPageIndex + 1);
             } else {
                 OnSurveyFinished?.Invoke();
                 OnSurveyFinishedResult?.Invoke(jsonResults);
             }
-        }
-
-        private void ShowThankYou() {
-            ClearPage();
-            _currentPageIndex = -1;
-
-            InstantiateComponent(new ComponentData {
-                type = "Header",
-                text = "Thank you"
-            });
-
-            InstantiateComponent(new ComponentData {
-                type = "Buttons",
-                label = "Finish",
-                buttonAction = "Finish"
-            });
-            
-            ForceLayoutUpdate();
         }
     }
 }

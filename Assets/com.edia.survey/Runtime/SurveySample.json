@@ -110,6 +110,17 @@
           "indicatorType": "Bands"
         }
       ]
+    },
+    {
+      "id": "page_thankyou",
+      "components": [
+        {
+          "id": "finish_survey",
+          "type": "finish_survey",
+          "text": "Thank you for participating in our survey!",
+          "label": "Finish"
+        }
+      ]
     }
   ]
 }

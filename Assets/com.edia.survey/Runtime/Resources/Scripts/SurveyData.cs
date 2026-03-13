@@ -12,9 +12,9 @@ namespace Edia.Survey {
         [SurveyComponentType]
         [Tooltip("The component type (Used by: All)")]
         public string type;
-        [Tooltip("Main content text (Used by: Header, Text, Slider, VAS)")]
+        [Tooltip("Main content text (Used by: Header, Text, Slider, VAS, Thank You)")]
         public string text;
-        [Tooltip("Header label for the component (Used by: Buttons, Likert, LikertMatrix, QuestionAnswer, QuestionDropdownAnswer, Slider, VAS)")]
+        [Tooltip("Header label for the component (Used by: Buttons, Likert, LikertMatrix, QuestionAnswer, QuestionDropdownAnswer, Slider, VAS, Thank You)")]
         public string label;
         [Tooltip("List of selection options (Used by: Likert, LikertMatrix, QuestionAnswer, QuestionDropdownAnswer)")]
         public List<string> options;

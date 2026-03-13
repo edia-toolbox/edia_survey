@@ -14,7 +14,8 @@ namespace Edia.Survey {
                 new SurveyPrefabSettings.ComponentPrefabMap { type = "Header", prefab = null },
                 new SurveyPrefabSettings.ComponentPrefabMap { type = "Likert", prefab = null },
                 new SurveyPrefabSettings.ComponentPrefabMap { type = "VAS", prefab = null },
-                new SurveyPrefabSettings.ComponentPrefabMap { type = "Buttons", prefab = null }
+                new SurveyPrefabSettings.ComponentPrefabMap { type = "Buttons", prefab = null },
+                new SurveyPrefabSettings.ComponentPrefabMap { type = "finish_survey", prefab = null }
             };
 
             AssetDatabase.CreateAsset(settings, path);

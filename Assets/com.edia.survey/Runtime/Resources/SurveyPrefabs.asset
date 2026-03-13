@@ -14,32 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabMappings:
   - type: header
-    prefab: {fileID: 4238083546501523145, guid: 1d9fa7ee5e6fd7d448db1a3011f3d408,
-      type: 3}
+    prefab: {fileID: 4238083546501523145, guid: 1d9fa7ee5e6fd7d448db1a3011f3d408, type: 3}
   - type: text
-    prefab: {fileID: 4238083546501523145, guid: f70dcee8d58c0fc4db687b70295aefe7,
-      type: 3}
+    prefab: {fileID: 4238083546501523145, guid: f70dcee8d58c0fc4db687b70295aefe7, type: 3}
   - type: Buttons
-    prefab: {fileID: 4238083546501523145, guid: 35b75fcbe3121fd488ed61f3c2f9319f,
-      type: 3}
+    prefab: {fileID: 4238083546501523145, guid: 35b75fcbe3121fd488ed61f3c2f9319f, type: 3}
   - type: likert_scale
-    prefab: {fileID: 5404308643376163577, guid: dc56fdc2bf97d6d4daeb2b8a829546ae,
-      type: 3}
+    prefab: {fileID: 5404308643376163577, guid: dc56fdc2bf97d6d4daeb2b8a829546ae, type: 3}
   - type: likert_matrix
-    prefab: {fileID: 5942500465276376087, guid: 7d03cca62113fb440805b0431d0a8467,
-      type: 3}
+    prefab: {fileID: 5942500465276376087, guid: 7d03cca62113fb440805b0431d0a8467, type: 3}
   - type: likert_faces
-    prefab: {fileID: 2907969361380548227, guid: e8c72b21feeb56546a72cdfcdd67d1f8,
-      type: 3}
+    prefab: {fileID: 2907969361380548227, guid: e8c72b21feeb56546a72cdfcdd67d1f8, type: 3}
   - type: vas_slider
-    prefab: {fileID: 7097564163944826487, guid: 21bd13281da307e4aae7c2482e06b04a,
-      type: 3}
+    prefab: {fileID: 7097564163944826487, guid: 21bd13281da307e4aae7c2482e06b04a, type: 3}
   - type: vas_markers
-    prefab: {fileID: 3105416516644574567, guid: f53486b70659e664f816b3aad307a80c,
-      type: 3}
+    prefab: {fileID: 3105416516644574567, guid: f53486b70659e664f816b3aad307a80c, type: 3}
   - type: qa_list
-    prefab: {fileID: 4238083546501523145, guid: 05c0e5868b096184fa26f31bfde05b13,
-      type: 3}
+    prefab: {fileID: 4238083546501523145, guid: 05c0e5868b096184fa26f31bfde05b13, type: 3}
   - type: qa_dropdown
-    prefab: {fileID: 1089221527696021859, guid: 1a96f72fde7ebba4bbad59c72fd67da8,
-      type: 3}
+    prefab: {fileID: 1089221527696021859, guid: 1a96f72fde7ebba4bbad59c72fd67da8, type: 3}
+  - type: finish_survey
+    prefab: {fileID: 7607218091119280749, guid: d813f55c030ea5942be8611d37b8c103, type: 3}

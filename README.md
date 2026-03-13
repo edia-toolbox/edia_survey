@@ -20,7 +20,7 @@ Use the following path: 'https://github.com/edia-toolbox/edia_survey.git?path=As
 1. Drag the prefab 'SurveyPanel' under a canvas object. 
 2. Define your survey by setting up the JSON config file. (see below)
 3. Drag this file into the 'Survey json' field.
-4. (Optional) Set the **Main Color** and **Show Thank You Page** settings in the inspector. If `Show Thank You Page` is disabled, the survey will finish immediately after submission.
+4. (Optional) Set the **Main Color** in the inspector.
 5. Link the `onFinished` UnityEvent to any cleanup or transition logic, the `OnFinishedResult` also provides the results as JSON string.
 
 
@@ -199,8 +199,22 @@ IndicatorTypes: `None`,`Lines`, `Bands`, `Numbers`]
 }
 ```
 
+### Finish Survey
+For displaying a final message.
+
+![ThankYou](./Documentation/img_14.png)
+```json
+{
+  "id": "end",
+  "type": "finish_survey",
+  "text": "Thank you for participating in our survey!",
+  "label": "Finish"
+}
+```
+
 ### Buttons
 For navigation (`Next`, `Back`). This is added automatically to each page.
+
 
 # Results
 

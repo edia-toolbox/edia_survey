@@ -57,5 +57,39 @@ namespace Edia.Survey
         {
             Assert.IsNotNull(_surveyManager);
         }
+
+        [Test]
+        public void SurveyManager_SubmitSurvey_OnLastPage_TriggersOnSurveyFinishedResult()
+        {
+            // Arrange
+            bool eventTriggered = false;
+            string resultsJson = null;
+
+            _surveyManager.OnSurveyFinishedResult.AddListener((json) => {
+                eventTriggered = true;
+                resultsJson = json;
+            });
+
+            var data = new SurveyData
+            {
+                surveyId = "test_survey_finish",
+                pages = new List<PageData>
+                {
+                    new PageData
+                    {
+                        id = "p1",
+                        components = new List<ComponentData>()
+                    }
+                }
+            };
+            _surveyManager.Init(data);
+
+            // Act
+            _surveyManager.SubmitSurvey();
+
+            // Assert
+            Assert.IsTrue(eventTriggered, "OnSurveyFinishedResult should be triggered when SubmitSurvey is called on the last page.");
+            Assert.IsNotNull(resultsJson, "Results JSON should not be null.");
+        }
     }
 }
