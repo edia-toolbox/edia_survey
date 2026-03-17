@@ -12,7 +12,10 @@ This system allows for dynamic generation of surveys from JSON configuration fil
 - **Automatic Results Collection**: Collects results automatically, logs them to a JSON file. 
 
 
-[![Alt Text](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://youtube.com/shorts/fKT8DYAp7Oo)
+
+<video src="https://youtube.com/shorts/fKT8DYAp7Oo" controls="controls" style="max-width: 100%;">
+  Your browser does not support the video tag.
+</video>
 
 
 # Installation
