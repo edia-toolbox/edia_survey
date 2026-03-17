@@ -12,7 +12,7 @@ This system allows for dynamic generation of surveys from JSON configuration fil
 - **Automatic Results Collection**: Collects results automatically, logs them to a JSON file. 
 
 # Example
-<video controls src="Edia_Survey.mp4" title="Survey" width="400" controls></video>
+<video controls src="Documentation/Edia_Survey.mp4" title="Survey" width="400" controls></video>
 
 # Installation
 Import the package via the Unity Package Manager.
