@@ -14,6 +14,10 @@ This system allows for dynamic generation of surveys from JSON configuration fil
 # Example
 <video src="https://github.com/edia-toolbox/edia_survey/raw/refs/heads/main/Documentation/Edia_Survey.mp4" title="Survey" width="400" controls></video>
 
+<video src="https://raw.githubusercontent.com/edia-toolbox/edia_survey/main/Documentation/Edia_Survey.mp4" width="400" controls>
+  Your browser does not support the video tag.
+</video>
+
 # Installation
 Import the package via the Unity Package Manager.
 
