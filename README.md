@@ -11,12 +11,8 @@ This system allows for dynamic generation of surveys from JSON configuration fil
 - **Dynamic UI Generation**: Creates UI survey components based on JSON configuration. No need to create prefabs manually.
 - **Automatic Results Collection**: Collects results automatically, logs them to a JSON file. 
 
-
-
-<video src="https://youtube.com/shorts/fKT8DYAp7Oo" controls="controls" style="max-width: 100%;">
-  Your browser does not support the video tag.
-</video>
-
+# Example
+<video controls src="Edia_Survey.mp4" title="Survey" width="400" controls></video>
 
 # Installation
 Import the package via the Unity Package Manager.
