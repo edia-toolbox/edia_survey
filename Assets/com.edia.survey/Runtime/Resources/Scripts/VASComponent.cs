@@ -8,9 +8,9 @@ namespace Edia.Survey {
 
     public class VASComponent : SurveyComponent {
         [Header("Settings")]
-        public Constants.VasTypes Type = Constants.VasTypes.Slider;
+        public Edia.Survey.Constants.VasTypes Type = Edia.Survey.Constants.VasTypes.Slider;
 
-        public Constants.IndicatorTypes IndicatorType = Constants.IndicatorTypes.Lines;
+        public Edia.Survey.Constants.IndicatorTypes IndicatorType = Edia.Survey.Constants.IndicatorTypes.Lines;
 
         [Header("References")]
         [SerializeField] private TextMeshProUGUI _topiclabel;
