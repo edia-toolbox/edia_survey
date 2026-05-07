@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -164,10 +165,13 @@ namespace Edia.Survey {
             }
 
             AddNavigationButtons(index, _data.pages.Count);
-            Invoke(nameof(ForceLayoutUpdate),0.1f);
+            
+            StartCoroutine(ForceLayoutUpdate());
         }
 
-        public void ForceLayoutUpdate() {
+        private IEnumerator ForceLayoutUpdate() {
+            yield return new WaitForEndOfFrame();
+            
             // Ensure all UI elements have calculated their sizes
             Canvas.ForceUpdateCanvases();
 
@@ -201,7 +205,7 @@ namespace Edia.Survey {
             }
 
             _activeComponents.Clear();
-            ForceLayoutUpdate();
+            StartCoroutine(ForceLayoutUpdate());
         }
 
         private void InstantiateComponent(ComponentData compData) {
