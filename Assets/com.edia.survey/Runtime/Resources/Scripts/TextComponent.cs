@@ -8,7 +8,7 @@ namespace Edia.Survey {
         public override void Init(ComponentData data) {
             base.Init(data);
             if (textField != null) {
-                textField.text = data.text;
+                textField.text = !string.IsNullOrEmpty(data.text) ? data.text : data.label;
             }
         }
 

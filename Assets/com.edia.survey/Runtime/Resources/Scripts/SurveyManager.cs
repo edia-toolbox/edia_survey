@@ -29,6 +29,9 @@ namespace Edia.Survey {
         private readonly SurveyResult _results = new SurveyResult();
         private readonly List<SurveyComponent> _activeComponents = new List<SurveyComponent>();
 
+        public int CurrentPageIndex => _currentPageIndex;
+        public SurveyData Data => _data;
+
         private void Start() {
             EnsureGraphicRaycasterExists();
             
@@ -165,6 +168,21 @@ namespace Edia.Survey {
                 }
         }
 
+        /// <summary>
+        /// Clears all generated components and resets the survey state.
+        /// </summary>
+        [ContextMenu( "Cleanup")]
+        public void Cleanup() {
+            ClearPage();
+            _currentPageIndex = -1;
+            _results.results.Clear();
+            _results.SurveyId = string.Empty;
+            _data = null;
+        }
+
+        /// <summary>
+        /// Clears all child objects of the current GameObject and resets all active survey components.
+        /// </summary>
         private void ClearPage() {
             
             while (this.transform.childCount > 0) {
