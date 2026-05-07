@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace Edia.Survey {
     [EdiaHeader("EDIA SURVEY", "Modular Toolkit", "Collects user feedback via variety of components")]
@@ -29,6 +30,8 @@ namespace Edia.Survey {
         private readonly List<SurveyComponent> _activeComponents = new List<SurveyComponent>();
 
         private void Start() {
+            EnsureGraphicRaycasterExists();
+            
             if (_data == null) {
                 LoadSurvey();
             }
@@ -37,7 +40,20 @@ namespace Edia.Survey {
                 ShowPage(0);
             }
         }
-        
+
+        private void EnsureGraphicRaycasterExists() {
+            Canvas canvas = GetComponentInParent<Canvas>();
+            if (canvas != null) {
+                TrackedDeviceGraphicRaycaster raycaster = canvas.GetComponent<TrackedDeviceGraphicRaycaster>();
+                if (raycaster == null) {
+                    canvas.gameObject.AddComponent<TrackedDeviceGraphicRaycaster>();
+                    Debug.Log("GraphicRaycaster added to Canvas.");
+                }
+            } else {
+                Debug.LogWarning("No Canvas found in parent hierarchy.");
+            }
+        }
+
         /// <summary>
         /// Initializes the survey using the JSON file or ScriptableObject assigned in the inspector.
         /// </summary>

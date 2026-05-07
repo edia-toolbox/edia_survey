@@ -3,7 +3,8 @@
     "rootNamespace": "Edia.Survey",
     "references": [
         "Unity.TextMeshPro",
-        "Edia.Core"
+        "Edia.Core",
+        "Unity.XR.Interaction.Toolkit"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
