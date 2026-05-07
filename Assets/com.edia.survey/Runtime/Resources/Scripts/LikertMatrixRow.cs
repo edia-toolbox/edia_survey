@@ -56,6 +56,19 @@ namespace Edia.Survey {
             }
         }
 
+        public void SetValue(string value) {
+            if (_toggleGroup == null || string.IsNullOrEmpty(value)) return;
+            var toggles = TogglesContainer.GetComponentsInChildren<Toggle>(true);
+            for (int i = 0; i < _options.Count; i++) {
+                if (_options[i] == value) {
+                    if (i < toggles.Length) {
+                        toggles[i].isOn = true;
+                    }
+                    break;
+                }
+            }
+        }
+
         public string GetValue() {
             if (_toggleGroup == null) return null;
             var activeToggle = _toggleGroup.ActiveToggles().FirstOrDefault();

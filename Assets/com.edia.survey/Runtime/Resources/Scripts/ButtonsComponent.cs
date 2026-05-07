@@ -60,6 +60,10 @@ namespace Edia.Survey {
             }
         }
 
+        public override void SetValue(string value) {
+            // Buttons don't have a value to restore
+        }
+
         public override string GetValue() {
             return null;
         }

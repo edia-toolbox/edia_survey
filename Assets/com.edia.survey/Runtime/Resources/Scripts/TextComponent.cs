@@ -12,6 +12,10 @@ namespace Edia.Survey {
             }
         }
 
+        public override void SetValue(string value) {
+            // Text blocks don't have a value to restore
+        }
+
         public override string GetValue() {
             return null; // Text blocks don't have a value to collect
         }

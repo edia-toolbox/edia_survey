@@ -22,6 +22,15 @@ namespace Edia.Survey {
             }
         }
 
+        public override void SetValue(string value) {
+            if (dropdown == null || string.IsNullOrEmpty(value)) return;
+            
+            int index = dropdown.options.FindIndex(option => option.text == value);
+            if (index >= 0) {
+                dropdown.value = index;
+            }
+        }
+
         public override string GetValue() {
             if (dropdown != null && dropdown.options.Count > 0) {
                 return dropdown.options[dropdown.value].text;

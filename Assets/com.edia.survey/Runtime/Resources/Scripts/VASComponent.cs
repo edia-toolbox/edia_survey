@@ -127,6 +127,26 @@ namespace Edia.Survey {
             }
         }
 
+        public override void SetValue(string value) {
+            if (string.IsNullOrEmpty(value) || value == "N.A.") return;
+
+            switch (Type) {
+                case Constants.VasTypes.Markers:
+                    foreach (var item in _spawnedItems) {
+                        var toggle = item.GetComponent<Toggle>();
+                        if (toggle != null) {
+                            toggle.isOn = item.name == value;
+                        }
+                    }
+                    break;
+                case Constants.VasTypes.Slider:
+                    if (float.TryParse(value, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out float val)) {
+                        sliderObj.value = val;
+                    }
+                    break;
+            }
+        }
+
         public override string GetValue() {
             switch (Type) {
                 case Constants.VasTypes.Markers:

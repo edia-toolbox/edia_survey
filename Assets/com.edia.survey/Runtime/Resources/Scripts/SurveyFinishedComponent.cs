@@ -25,6 +25,10 @@ namespace Edia.Survey {
             }
         }
 
+        public override void SetValue(string value) {
+            // No value to restore
+        }
+
         public override string GetValue() {
             return null; // No value to collect
         }

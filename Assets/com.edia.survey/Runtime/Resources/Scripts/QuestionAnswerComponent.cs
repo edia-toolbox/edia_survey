@@ -69,6 +69,18 @@ namespace Edia.Survey {
             }
         }
 
+        public override void SetValue(string value) {
+            if (string.IsNullOrEmpty(value)) {
+                foreach (var t in _toggles) t.isOn = false;
+                return;
+            }
+
+            var selected = value.Split(new[] { ", " }, System.StringSplitOptions.RemoveEmptyEntries);
+            foreach (var t in _toggles) {
+                t.isOn = selected.Contains(t.name);
+            }
+        }
+
         public override string GetValue() {
             var selectedOptions = _toggles
                 .Where(t => t.isOn)

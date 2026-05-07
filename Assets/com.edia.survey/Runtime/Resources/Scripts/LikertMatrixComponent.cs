@@ -71,6 +71,23 @@ namespace Edia.Survey {
             _rows.Clear();
         }
 
+        public override void SetValue(string value) {
+            if (string.IsNullOrEmpty(value)) return;
+
+            var topicPairs = value.Split(new[] { "; " }, System.StringSplitOptions.RemoveEmptyEntries);
+            foreach (var pair in topicPairs) {
+                var parts = pair.Split(new[] { ": " }, 2, System.StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length == 2) {
+                    var topic = parts[0];
+                    var val = parts[1];
+                    var row = _rows.Find(r => r.Topic == topic);
+                    if (row != null) {
+                        row.SetValue(val);
+                    }
+                }
+            }
+        }
+
         public override string GetValue() {
             var results = _rows
                 .Select(r => new { Topic = r.Topic, Value = r.GetValue() })

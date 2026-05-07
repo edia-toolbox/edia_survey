@@ -15,6 +15,11 @@ namespace Edia.Survey {
         public abstract string GetValue();
         
         /// <summary>
+        /// Sets the current value of the component.
+        /// </summary>
+        public abstract void SetValue(string value);
+
+        /// <summary>
         /// Resets the component to its default state if needed.
         /// </summary>
         public virtual void ResetComponent() { }

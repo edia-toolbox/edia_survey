@@ -167,6 +167,13 @@ namespace Edia.Survey {
                 var        comp = go.GetComponent<SurveyComponent>();
                 if (comp != null) {
                     comp.Init(compData);
+
+                    // Restore previous value if it exists
+                    var previousResult = _results.results.Find(r => r.componentId == compData.id);
+                    if (previousResult != null) {
+                        comp.SetValue(previousResult.value);
+                    }
+
                     _activeComponents.Add(comp);
                 }
             } else {
