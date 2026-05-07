@@ -191,6 +191,7 @@ namespace Edia.Survey {
                 Destroy(child.gameObject);
             }
             _activeComponents.Clear();
+            ForceLayoutUpdate();
         }
 
         private void InstantiateComponent(ComponentData compData) {
