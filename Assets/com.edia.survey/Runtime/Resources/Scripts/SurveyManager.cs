@@ -164,7 +164,7 @@ namespace Edia.Survey {
             }
 
             AddNavigationButtons(index, _data.pages.Count);
-            ForceLayoutUpdate();
+            Invoke(nameof(ForceLayoutUpdate),0.1f);
         }
 
         public void ForceLayoutUpdate() {
