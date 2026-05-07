@@ -43,6 +43,7 @@ namespace Edia.Survey {
         /// <summary>
         /// Initializes the survey using the JSON file or ScriptableObject assigned in the inspector.
         /// </summary>
+        [ContextMenu("Initialize Survey")]
         public void Init() {
             LoadSurvey();
             if (_data != null && _data.pages.Count > 0) {
