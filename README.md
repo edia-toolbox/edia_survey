@@ -5,11 +5,13 @@
 # EDIA Survey Toolkit
 
 This system allows for dynamic generation of surveys from JSON configuration files or ScriptableObjects in Unity.
+It works within VR on a world canvas and is depending on the edia.core package.
 
 # Features
 - **Configurable**: Use the same JSON config for multiple surveys.
 - **Dynamic UI Generation**: Creates UI survey components based on JSON configuration. No need to create prefabs manually.
 - **Automatic Results Collection**: Collects results automatically, logs them to a JSON file. 
+- **State Preservation**: Automatically saves user input when navigating between pages, allowing users to go back and modify their answers without losing progress.
 
 # Example
 <div align="center">
