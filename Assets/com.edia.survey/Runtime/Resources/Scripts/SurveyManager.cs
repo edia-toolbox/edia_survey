@@ -166,12 +166,16 @@ namespace Edia.Survey {
 
             AddNavigationButtons(index, _data.pages.Count);
             
-            StartCoroutine(ForceLayoutUpdate());
+            StartCoroutine(ForceLayoutUpdateDelay());
         }
 
-        private IEnumerator ForceLayoutUpdate() {
+        private IEnumerator ForceLayoutUpdateDelay() {
             yield return new WaitForEndOfFrame();
-            
+
+            UpdateCanvasLayout();
+        }
+
+        private void UpdateCanvasLayout() {
             // Ensure all UI elements have calculated their sizes
             Canvas.ForceUpdateCanvases();
 
@@ -205,7 +209,7 @@ namespace Edia.Survey {
             }
 
             _activeComponents.Clear();
-            StartCoroutine(ForceLayoutUpdate());
+            UpdateCanvasLayout();
         }
 
         private void InstantiateComponent(ComponentData compData) {
@@ -260,6 +264,9 @@ namespace Edia.Survey {
 
                 _activeComponents.Add(btnComp);
             }
+            
+            UpdateCanvasLayout();
+            
         }
 
         private GameObject GetPrefabForType(string type) {
