@@ -9,8 +9,6 @@ namespace Edia.Survey {
     public class SurveyManager : MonoBehaviour {
 
         [Header("Settings")]
-        public Color FocusColor = Color.yellow;
-        [Space(10)]
         [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
         public TextAsset SurveyJson;
         [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
