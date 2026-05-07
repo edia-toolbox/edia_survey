@@ -4,7 +4,8 @@
     "references": [
         "Edia.Survey.Runtime",
         "Unity.TextMeshPro",
-        "Unity.TextMeshPro.Editor"
+        "Unity.TextMeshPro.Editor",
+        "Edia.Core.Editor"
     ],
     "includePlatforms": [
         "Editor"
