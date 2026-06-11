@@ -1,27 +1,30 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.XR.Interaction.Toolkit.UI;
 
 namespace Edia.Survey {
+
     [EdiaHeader("EDIA SURVEY", "Modular Toolkit", "Collects user feedback via variety of components")]
     public class SurveyManager : MonoBehaviour {
-
         [Header("Settings")]
-        public Color FocusColor = Color.yellow;
-        [Space(10)]
         [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
         public TextAsset SurveyJson;
+
         [Tooltip("Either provide a SurveyConfiguration or a JSON string to load the survey data")]
         public SurveyConfiguration SurveyConfig;
+
         [Space(20)]
         [Header("Callbacks")]
         [Tooltip("Optional: Triggered when the survey is finished")]
         public UnityEvent OnSurveyFinished;
+
         [Tooltip("Optional: Triggered when the survey is finished and provides results.json as a string")]
         public UnityEvent<string> OnSurveyFinishedResult;
-        
+
         [SerializeField, HideInInspector]
         private SurveyPrefabSettings PrefabReferences;
 
@@ -30,16 +33,35 @@ namespace Edia.Survey {
         private readonly SurveyResult _results = new SurveyResult();
         private readonly List<SurveyComponent> _activeComponents = new List<SurveyComponent>();
 
+        public int CurrentPageIndex => _currentPageIndex;
+        public SurveyData Data => _data;
+
         private void Start() {
+            EnsureGraphicRaycasterExists();
+
             if (_data == null) {
                 LoadSurvey();
             }
-            
+
             if (_data != null && _data.pages.Count > 0) {
                 ShowPage(0);
             }
         }
-        
+
+        private void EnsureGraphicRaycasterExists() {
+            Canvas canvas = GetComponentInParent<Canvas>();
+            if (canvas != null) {
+                TrackedDeviceGraphicRaycaster raycaster = canvas.GetComponent<TrackedDeviceGraphicRaycaster>();
+                if (raycaster == null) {
+                    canvas.gameObject.AddComponent<TrackedDeviceGraphicRaycaster>();
+                    Debug.Log("GraphicRaycaster added to Canvas.");
+                }
+            }
+            else {
+                Debug.LogWarning("No Canvas found in parent hierarchy.");
+            }
+        }
+
         /// <summary>
         /// Initializes the survey using the JSON file or ScriptableObject assigned in the inspector.
         /// </summary>
@@ -61,7 +83,8 @@ namespace Edia.Survey {
                 _results.SurveyId = _data.surveyId;
                 Debug.Log($"Survey initialized from JSON string with {_data.pages.Count} pages.");
                 ShowPage(0);
-            } else {
+            }
+            else {
                 Debug.LogError("Failed to parse Survey JSON provided to Init.");
             }
         }
@@ -76,7 +99,8 @@ namespace Edia.Survey {
                 _results.SurveyId = _data.surveyId;
                 Debug.Log($"Survey initialized from SurveyData with {_data.pages.Count} pages.");
                 ShowPage(0);
-            } else {
+            }
+            else {
                 Debug.LogError("SurveyData provided to Init is null.");
             }
         }
@@ -91,27 +115,31 @@ namespace Edia.Survey {
                 _results.SurveyId = _data.surveyId;
                 Debug.Log($"Survey initialized from ScriptableObject with {_data.pages.Count} pages.");
                 ShowPage(0);
-            } else {
+            }
+            else {
                 Debug.LogError("SurveyConfiguration provided to Init is null or contains no data.");
             }
         }
-        
-        
+
+
         private void LoadSurvey() {
             if (SurveyConfig != null && SurveyConfig.Data != null) {
                 _data = SurveyConfig.Data;
                 _results.SurveyId = _data.surveyId;
                 Debug.Log($"Survey loaded from ScriptableObject with {_data.pages.Count} pages.");
-            } else if (SurveyJson != null) {
+            }
+            else if (SurveyJson != null) {
                 string json = SurveyJson.text;
                 _data = JsonUtility.FromJson<SurveyData>(json);
                 if (_data != null) {
                     _results.SurveyId = _data.surveyId;
                     Debug.Log($"Survey loaded from JSON with {_data.pages.Count} pages.");
-                } else {
+                }
+                else {
                     Debug.LogError("Failed to parse Survey JSON.");
                 }
-            } else {
+            }
+            else {
                 Debug.LogError("No Survey Configuration or JSON file assigned in the inspector.");
             }
         }
@@ -137,28 +165,51 @@ namespace Edia.Survey {
             }
 
             AddNavigationButtons(index, _data.pages.Count);
-            ForceLayoutUpdate();
-        }
-
-        private void ForceLayoutUpdate() {
-                // Ensure all UI elements have calculated their sizes
-                Canvas.ForceUpdateCanvases();
-                
-                // Force layout rebuild on the container
-                RectTransform rectTransform = this.GetComponent<RectTransform>();
-                if (rectTransform != null) {
-                    LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
-                }
-        }
-
-        private void ClearPage() {
             
+            StartCoroutine(ForceLayoutUpdateDelay());
+        }
+
+        private IEnumerator ForceLayoutUpdateDelay() {
+            yield return new WaitForEndOfFrame();
+
+            UpdateCanvasLayout();
+        }
+
+        private void UpdateCanvasLayout() {
+            // Ensure all UI elements have calculated their sizes
+            Canvas.ForceUpdateCanvases();
+
+            // Force layout rebuild on the container
+            RectTransform rectTransform = this.GetComponent<RectTransform>();
+            if (rectTransform != null) {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+            }
+        }
+
+        /// <summary>
+        /// Clears all generated components and resets the survey state.
+        /// </summary>
+        [ContextMenu("Cleanup")]
+        public void Cleanup() {
+            ClearPage();
+            _currentPageIndex = -1;
+            _results.results.Clear();
+            _results.SurveyId = string.Empty;
+            _data = null;
+        }
+
+        /// <summary>
+        /// Clears all child objects of the current GameObject and resets all active survey components.
+        /// </summary>
+        private void ClearPage() {
             while (this.transform.childCount > 0) {
                 Transform child = this.transform.GetChild(0);
                 child.SetParent(null);
                 Destroy(child.gameObject);
             }
+
             _activeComponents.Clear();
+            UpdateCanvasLayout();
         }
 
         private void InstantiateComponent(ComponentData compData) {
@@ -177,7 +228,8 @@ namespace Edia.Survey {
 
                     _activeComponents.Add(comp);
                 }
-            } else {
+            }
+            else {
                 Debug.LogWarning($"No prefab found for component type: {compData.type}");
             }
         }
@@ -205,18 +257,23 @@ namespace Edia.Survey {
                 // Next button on all pages except the last, Submit on the last
                 if (pageIndex < totalPages - 1) {
                     btnComp.AddButton("Next", "Next");
-                } else {
+                }
+                else {
                     btnComp.AddButton("Submit", "Submit");
                 }
-                
+
                 _activeComponents.Add(btnComp);
             }
+            
+            UpdateCanvasLayout();
+            
         }
 
         private GameObject GetPrefabForType(string type) {
             if (PrefabReferences == null) {
                 PrefabReferences = Resources.Load<SurveyPrefabSettings>("SurveyPrefabs");
             }
+
             return PrefabReferences != null ? PrefabReferences.GetPrefabForType(type) : null;
         }
 
@@ -251,7 +308,8 @@ namespace Edia.Survey {
                     var existing = _results.results.Find(r => r.componentId == comp.Data.id);
                     if (existing != null) {
                         existing.value = value;
-                    } else {
+                    }
+                    else {
                         _results.results.Add(new ComponentResult { componentId = comp.Data.id, value = value });
                     }
                 }
@@ -263,18 +321,20 @@ namespace Edia.Survey {
             string jsonResults = "";
             try {
                 jsonResults = JsonUtility.ToJson(_results, true);
-            } catch (System.Exception e) {
+            }
+            catch (System.Exception e) {
                 Debug.LogError("Failed to serialize results: " + e.Message);
             }
-            
+
             Debug.Log("Survey Submitted:\n" + jsonResults);
-            
+
             // Example: Save to persistent data path
             try {
                 string savePath = Path.Combine(Application.persistentDataPath, "results.json");
                 File.WriteAllText(savePath, jsonResults);
                 Debug.Log("Results saved to: " + savePath);
-            } catch (System.Exception e) {
+            }
+            catch (System.Exception e) {
                 Debug.LogWarning("Failed to save results: " + e.Message);
             }
 
@@ -282,10 +342,12 @@ namespace Edia.Survey {
             // By default, the survey finishes after the last page unless a 'finish' action is triggered by a component.
             if (_data != null && _currentPageIndex < _data.pages.Count - 1) {
                 ShowPage(_currentPageIndex + 1);
-            } else {
+            }
+            else {
                 OnSurveyFinished?.Invoke();
                 OnSurveyFinishedResult?.Invoke(jsonResults);
             }
         }
     }
+
 }

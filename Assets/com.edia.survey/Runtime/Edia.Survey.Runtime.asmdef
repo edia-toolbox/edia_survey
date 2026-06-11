@@ -2,7 +2,9 @@
     "name": "Edia.Survey.Runtime",
     "rootNamespace": "Edia.Survey",
     "references": [
-        "Unity.TextMeshPro"
+        "Unity.TextMeshPro",
+        "Edia.Core",
+        "Unity.XR.Interaction.Toolkit"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

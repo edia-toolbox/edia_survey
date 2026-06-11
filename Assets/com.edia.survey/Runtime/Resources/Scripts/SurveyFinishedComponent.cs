@@ -16,12 +16,9 @@ namespace Edia.Survey {
             if (infoTextComponent != null) {
                 infoTextComponent.Init(data);
             }
-
-            ComponentData tmp = data;
-            data.text = data.label; // We want the label to be the text for this header testcomponent
             
             if (headerTextComponent != null) {
-                headerTextComponent.Init(tmp);
+                headerTextComponent.Init(data);
             }
         }
 
